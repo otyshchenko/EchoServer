@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<form>
+    <input type="text" id="message">
+    <button type="button" onclick="send()" id="click">Send</button>
+</form>
+
+<p id="answer"></p>
+
+<script>
+    var websoket = new WebSocket("ws://localhost:8080/websocket/load");
+
+    websoket.onmessage = function(event){
+        onMessage(event);
+    };
+
+    var onMessage = function(event){
+        document.getElementById('answer').innerHTML
+                += 'Received message: ' + event.data;
+    };
+
+       function send () {
+        var txt = document.getElementById('message').value;
+        websoket.send(txt);
+        return false;
+    }
+
+</script>
+
+</body>
+</html>

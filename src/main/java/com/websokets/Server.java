@@ -9,11 +9,13 @@ import java.io.IOException;
 public class Server {
 
     @OnMessage
-    public void onMessage(final String message, final Session session){
+    public void onMessage(final String message, final Session session) throws IOException {
         try {
             session.getBasicRemote().sendText(message);
         } catch (IOException e) {
             System.out.println("Log something..");
+        } finally {
+            session.close();
         }
     }
 }
